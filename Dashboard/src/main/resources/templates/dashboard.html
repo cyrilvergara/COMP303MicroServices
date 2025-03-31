@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Microservices Dashboard</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+  </head>
+  <body>
+    <header class="nav-header">
+      <h1>Microservices Dashboard</h1>
+    </header>
+
+    <div class="main-content">
+      <!-- Order Form Section -->
+      <div class="order-form-section section">
+        <h2>Create New Order</h2>
+        <form action="/placeOrder" method="post">
+          <div class="form-group">
+            <label for="account">Account:</label>
+            <input type="text" id="account" name="account" required />
+          </div>
+          <div class="form-group">
+            <label for="stockSymbol">Stock Symbol:</label>
+            <input type="text" id="stockSymbol" name="stockSymbol" required />
+          </div>
+          <div class="form-group">
+            <label for="units">Units:</label>
+            <input type="text" id="units" name="units" required />
+          </div>
+          <div class="form-group">
+            <label for="stockPrice">Stock Price:</label>
+            <input type="text" id="stockPrice" name="stockPrice" required />
+          </div>
+          <button type="submit">Place Order</button>
+        </form>
+      </div>
+
+      <!-- Tabs Section -->
+      <div class="tabs-section">
+        <div class="tabs">
+          <a
+            th:href="@{/(tab='orders')}"
+            th:class="${currentTab == 'orders'} ? 'tab active' : 'tab'"
+            >Orders</a
+          >
+          <a
+            th:href="@{/(tab='transactions')}"
+            th:class="${currentTab == 'transactions'} ? 'tab active' : 'tab'"
+            >Transactions</a
+          >
+          <a
+            th:href="@{/(tab='fees')}"
+            th:class="${currentTab == 'fees'} ? 'tab active' : 'tab'"
+            >Fees</a
+          >
+        </div>
+
+        <!-- Orders Tab -->
+        <div id="orders-tab" class="section" th:if="${currentTab == 'orders'}">
+          <h2>Orders</h2>
+          <div th:if="${orders == null || #lists.isEmpty(orders)}">
+            <p>No orders found.</p>
+          </div>
+          <table th:if="${orders != null && !#lists.isEmpty(orders)}">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Account</th>
+                <th>Stock Symbol</th>
+                <th>Units</th>
+                <th>Stock Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="order : ${orders}">
+                <td th:text="${order.id}">-</td>
+                <td th:text="${order.account}">-</td>
+                <td th:text="${order.stockSymbol}">-</td>
+                <td th:text="${order.units}">-</td>
+                <td th:text="${order.stockPrice}">-</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Transactions Tab -->
+        <div
+          id="transactions-tab"
+          class="section"
+          th:if="${currentTab == 'transactions'}"
+        >
+          <h2>Transactions</h2>
+          <div th:if="${transactions == null || #lists.isEmpty(transactions)}">
+            <p>No transactions found.</p>
+          </div>
+          <table
+            th:if="${transactions != null && !#lists.isEmpty(transactions)}"
+          >
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Account</th>
+                <th>Stock Symbol</th>
+                <th>Units</th>
+                <th>Stock Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="transaction : ${transactions}">
+                <td th:text="${transaction.id}">-</td>
+                <td th:text="${transaction.account}">-</td>
+                <td th:text="${transaction.stockSymbol}">-</td>
+                <td th:text="${transaction.units}">-</td>
+                <td th:text="${transaction.stockPrice}">-</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Fees Tab -->
+        <div id="fees-tab" class="section" th:if="${currentTab == 'fees'}">
+          <h2>Fees</h2>
+          <div th:if="${fees == null || #lists.isEmpty(fees)}">
+            <p>No fees found.</p>
+          </div>
+          <table th:if="${fees != null && !#lists.isEmpty(fees)}">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Order ID</th>
+                <th>Account</th>
+                <th>Stock Symbol</th>
+                <th>Fee Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="fee : ${fees}">
+                <td th:text="${fee?.id}">-</td>
+                <td th:text="${fee?.orderId}">-</td>
+                <td th:text="${fee?.account}">-</td>
+                <td th:text="${fee?.stockSymbol}">-</td>
+                <td th:text="${fee?.feeAmount}">-</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Messages Section -->
+    <div class="messages">
+      <div th:if="${errorMessage}" class="error-message">
+        <p th:text="${errorMessage}">Error message goes here</p>
+      </div>
+      <div th:if="${successMessage}" class="success-message">
+        <p th:text="${successMessage}">Success message goes here</p>
+      </div>
+    </div>
+  </body>
+</html>
