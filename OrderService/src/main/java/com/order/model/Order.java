@@ -21,12 +21,6 @@ public class Order {
     
     @JsonProperty("stockPrice")
     private String stockPrice;
-    
-    // @JsonProperty("transactionType")
-    // private String transactionType;
-    
-    // @JsonProperty("status")
-    // private String status;
 
     public String getId() {
         return id;
