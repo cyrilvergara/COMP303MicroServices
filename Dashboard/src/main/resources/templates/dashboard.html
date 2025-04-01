@@ -64,7 +64,7 @@
           <table th:if="${orders != null && !#lists.isEmpty(orders)}">
             <thead>
               <tr>
-                <th>ID</th>
+                <th>OrderID</th>
                 <th>Account</th>
                 <th>Stock Symbol</th>
                 <th>Units</th>
@@ -86,7 +86,7 @@
         <!-- Transactions Tab -->
         <div
           id="transactions-tab"
-          class="section"
+          class="tab-content"
           th:if="${currentTab == 'transactions'}"
         >
           <h2>Transactions</h2>
@@ -95,14 +95,14 @@
           </div>
           <table
             th:if="${transactions != null && !#lists.isEmpty(transactions)}"
+            class="table"
           >
             <thead>
               <tr>
-                <th>ID</th>
+                <th>Transaction ID</th>
                 <th>Account</th>
                 <th>Stock Symbol</th>
-                <th>Units</th>
-                <th>Stock Price</th>
+                <th>Transaction Date</th>
               </tr>
             </thead>
             <tbody>
@@ -110,8 +110,11 @@
                 <td th:text="${transaction.id}">-</td>
                 <td th:text="${transaction.account}">-</td>
                 <td th:text="${transaction.stockSymbol}">-</td>
-                <td th:text="${transaction.units}">-</td>
-                <td th:text="${transaction.stockPrice}">-</td>
+                <td
+                  th:text="${#temporals.format(transaction.transactionDate, 'yyyy-MM-dd HH:mm:ss')}"
+                >
+                  -
+                </td>
               </tr>
             </tbody>
           </table>
@@ -126,7 +129,7 @@
           <table th:if="${fees != null && !#lists.isEmpty(fees)}">
             <thead>
               <tr>
-                <th>ID</th>
+                <th>Fee ID</th>
                 <th>Order ID</th>
                 <th>Account</th>
                 <th>Stock Symbol</th>

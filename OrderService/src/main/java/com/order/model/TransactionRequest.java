@@ -1,26 +1,39 @@
 package com.order.model;
 
+import java.time.LocalDateTime;
+
 public class TransactionRequest {
     private String account;
     private String stockSymbol;
-    private String units;
-    private String stockPrice;
+    private LocalDateTime transactionDate;
 
-    public TransactionRequest(String account, String stockSymbol, String units, 
-                            String stockPrice) {
+    public TransactionRequest(String account, String stockSymbol) {
         this.account = account;
         this.stockSymbol = stockSymbol;
-        this.units = units;
-        this.stockPrice = stockPrice;
+        this.transactionDate = LocalDateTime.now();
     }
 
-    public String getAccount() { return account; }
-    public String getStockSymbol() { return stockSymbol; }
-    public String getUnits() { return units; }
-    public String getStockPrice() { return stockPrice; }
+    public String getAccount() {
+        return account;
+    }
 
-    public void setAccount(String account) { this.account = account; }
-    public void setStockSymbol(String stockSymbol) { this.stockSymbol = stockSymbol; }
-    public void setUnits(String units) { this.units = units; }
-    public void setStockPrice(String stockPrice) { this.stockPrice = stockPrice; }
+    public void setAccount(String account) {
+        this.account = account;
+    }
+
+    public String getStockSymbol() {
+        return stockSymbol;
+    }
+
+    public void setStockSymbol(String stockSymbol) {
+        this.stockSymbol = stockSymbol;
+    }
+
+    public LocalDateTime getTransactionDate() {
+        return transactionDate;
+    }
+
+    public void setTransactionDate(LocalDateTime transactionDate) {
+        this.transactionDate = transactionDate;
+    }
 } 

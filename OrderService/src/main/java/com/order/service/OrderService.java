@@ -35,17 +35,15 @@ public class OrderService {
 
     private Mono<Void> createTransaction(Order order) {
         var transaction = new TransactionRequest(
-            order.getAccount(),
-            order.getStockSymbol(),
-            order.getUnits(),
-            order.getStockPrice()
+                order.getAccount(),
+                order.getStockSymbol()
         );
 
         return transactionWebClient.post()
-            .uri("/api/transactions")
-            .bodyValue(transaction)
-            .retrieve()
-            .bodyToMono(Void.class);
+                .uri("/api/transactions")
+                .bodyValue(transaction)
+                .retrieve()
+                .bodyToMono(Void.class);
     }
 
     private Mono<Void> createFee(Order order) {
